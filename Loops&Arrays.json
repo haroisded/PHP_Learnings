@@ -1,0 +1,92 @@
+- - - ( PHP Loops & Arrays ) - - - 
+
+
+** ( Alternative Syntax, using Foreach ):
+
+- helpful for building complex HTML fragments
+
+
+
+
+* ( "Sample Code w/Arrays" ):
+
+<?php
+
+   $array = [
+   "Miver",
+   "Reniel",
+   "Uel"
+   ];
+
+?>
+  
+  
+<?php foreach ($array as $arr): ?>
+
+   <div> <?php echo "Hello there {$arr}" ?> </div>
+
+<?php endforeach; ?>
+
+
+
+
+* ( "Sample Code w/Assoc Arrays ( Value of Keys ONLY )"):
+
+<?php
+
+   $array = [
+   [ "name" => "reo", "age" => 21, "hobby" => "soccer"],
+   [ "name" => "bob", "age" => 30, "hobby" => "drinking"],
+   [ "name" => "emily", "age" => 5, "hobby" => "princess"],
+   ];
+
+?>
+ 
+ 
+<?php foreach ($array as $arr): ?>
+
+   <div>
+
+   <?php 
+   echo "
+      name:  {$arr['name']} | 
+      age:   {$arr['age']} | 
+      hobby: {$arr['hobby']}
+   "; 
+   ?>
+      
+   </div>
+
+<?php endforeach; ?>
+ 
+
+
+
+* ( "Sample Code w/Associative Arrays ( Key / Value Pair )" ):
+
+<?php
+
+   $array = [
+   [ "name" => "uel", "age" => 21, "hobby" => "soccer"],
+   [ "name" => "bob", "age" => 30, "hobby" => "drinking"],
+   [ "name" => "emily", "age" => 5, "hobby" => "princess"],
+   ];
+
+?>
+ 
+ 
+<?php foreach ($array as $arr): ?>
+
+
+   <div>
+
+     <?php foreach ($arr as $peoples => $people): ?>
+    
+        <?php echo "{$peoples}: {$people} |"; ?>
+     
+     <?php endforeach; ?>      
+      
+   </div>
+
+
+<?php endforeach; ?>

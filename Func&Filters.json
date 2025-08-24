@@ -1,0 +1,105 @@
+- - - ( PHP Functions & Filters ) - - -
+
+
+
+
+* ("Sample Functions & Filter"):
+
+<?php
+
+  $array = [
+  [ "name" => "uel", "age" => 21, "hobby" => "soccer"],
+  [ "name" => "bob", "age" => 30, "hobby" => "basketball"],
+  [ "name" => "emily", "age" => 5, "hobby" => "princess"],
+  ];
+
+
+  function MyFilterer($array, $hobby){
+    $filteredNames = [];
+
+      foreach( $array as $Filter ){
+
+      if($Filter['hobby'] === $hobby){ $filteredNames[] = $Filter; } 
+
+      }
+
+    return $filteredNames;
+  } 
+
+?>
+
+
+
+<?php foreach (MyFilterer($array, "soccer") as $arr): ?>
+
+  <div>
+
+    <?php 
+    echo "
+    name:  {$arr['name']} | 
+    age:   {$arr['age']} | 
+    hobby: {$arr['hobby']}
+    "; 
+    ?>
+      
+  </div>
+
+<?php endforeach; ?>
+
+
+
+
+* ("Sample of Lambda Function"):
+
+- a lambda function, a function without a name that can be stored in a variable, 
+  passed as an argument to other functions, or returned from functions
+
+
+
+<?php
+
+  $array = [
+  [ "name" => "uel", "age" => 21, "hobby" => "soccer"],
+  [ "name" => "bob", "age" => 30, "hobby" => "basketball"],
+  [ "name" => "emily", "age" => 5, "hobby" => "princess"],
+  ];
+
+
+  $Filter_By_Hobby = function ($array, $user_hobby){
+    $filteredNames = [];
+
+      foreach( $array as $Filter ){
+
+      if($Filter['hobby'] === $user_hobby){ $filteredNames[] = $Filter; } 
+
+      }
+
+    return $filteredNames;
+  };
+  // Assigning the function to a Var 
+
+  
+  $MyArr_Filtered = $Filter_By_Hobby($array, "soccer");
+  // Transferring the Value of the Function to a Var
+
+
+?>
+
+
+
+<?php foreach ( $MyArr_Filtered as $arr): ?>
+
+
+  <div>
+
+    <?php 
+      echo "
+      name:  {$arr['name']} | 
+      age:   {$arr['age']} | 
+      hobby: {$arr['hobby']}
+      "; 
+    ?>
+      
+  </div>
+
+<?php endforeach; ?>
