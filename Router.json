@@ -1,0 +1,49 @@
+- - - ( PHP Custom Router ) - - - 
+
+
+A single point of entry (usually index.php) 
+  → every request goes through this file
+
+Inside it, you write logic that maps a URL (or route) 
+  to some handler/controller/function
+
+
+
+* ("Code"):
+
+
+<?php
+
+require 'functions.php'; 
+//Contains a function that returns a boolean if a filepath is matched
+
+ 
+$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+//Parses the URL, limiting the path returned w/o query strings 
+
+ 
+$routes = [
+ '/' => 'controllers/index.php'
+ '/about'  => 'controllers/about.php'
+ '/contact' => 'controllers/contact.php'
+] 
+//Assoc_Array which Contains Key( path ) & Value( page )
+
+
+function Abort(){
+ http_response_code(404);
+ echo "No Such Content Available";
+ die();
+}
+// A Function which... Returns a 404 Status, and "die" / ends execution ( in summary "Abort" )
+
+
+if ( array_key_exists(*Key, *Assoc_Array) ){ require $routers[$uri];}
+else{ Abort(); }
+//Checks if the given name of the Key, within the Assoc array exists
+//If condition met, it now "require" the page( value ) of the Corresponding Key
+//Else calling the "Abort function"
+
+?>
+
+

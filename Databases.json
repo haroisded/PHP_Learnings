@@ -1,0 +1,142 @@
+- - - ( PHP & Databses ) - - -
+
+
+- To connect to a database, you would need 
+  an instance of the PDO class 
+
+
+
+- ( Example Code 1.1(w/ Explanations) ):
+
+• $dsn = "mysql:
+ host=*Your_Host;
+ port=*Your_Port;
+ dbanme=*Your_DB_name;
+ user=*Your_Username;
+ charset=*Your_CharSet;
+ ";
+/*
+$dsn ( Data Source Name ), a string that declares
+the users connection to the database,e.g..
+• host
+• port
+• database name
+• user
+• character set
+*/
+
+
+• $pdo = new PDO($dsn);
+// Creates the PDO instance
+
+
+• $statement = $pdo->prepare("select * from posts");
+// Preparing a Query Statement that would be Sent 
+
+
+• $statement->execute();
+// A method that sends the query to execute 
+
+
+• $results = $statement->fetchAll( PDO::FETCH_ASSOC );
+// Fetch all of the results made by the sent query
+// PDO::FETCH_ASSOC, the method of how the received data will be structured 
+
+
+• foreach( $results as $data ){
+ echo "<li>" . $data['*Key'] . "<li>";
+}
+// Outputs Received Data
+
+
+
+- ( Example Code 1.2(w/o Explanations) ):
+
+<?php 
+
+• $dsn = "mysql:
+host=*Your_Host;
+port=*Your_Port;
+dbname=*Your_DB_name;
+user=*Your_Username;
+charset=*Your_CharSet;
+";
+
+
+• $pdo = new PDO($dsn);
+
+
+• $statement = $pdo->prepare("select * from posts");
+
+
+• $statement->execute();
+
+
+• $results = $statement->fetchAll( PDO::FETCH_ASSOC );
+
+
+• foreach( $results as $data ){
+echo "<li>" . $data['*Key'] . "<li>";
+}
+
+?>
+
+
+
+- ( Example Code 2, DB & Classes ):
+
+
+<?php 
+
+class Database {
+
+ 
+ public $connection;
+ 
+
+ public function __construct(){
+
+  $dsn = "mysql:
+  host=*Your_Host;
+  port=*Your_Port;
+  dbname=*Your_DB_name;
+  user=*Your_Username;
+  charset=*Your_CharSet;
+  ";
+
+  $this -> connection = new PDO($dsn);
+
+ }
+ // A Constructor, that creates an instance of the PDO, 
+ // whenever a new instance of this class is created, 
+ // a PDO instance is created on that instance 
+
+
+ public function query($user_query){
+  
+  $statement = $this -> connection -> prepare($user_query);
+
+  $statement->execute();
+
+
+ return $statement
+
+ }
+
+}
+
+
+ $db = new Database();
+
+ $results = $db -> query("select * from posts") -> fetchAll( PDO::FETCH_ASSOC );
+
+
+ foreach( $results as $data ){
+  echo "<li>" . $data['*Key'] . "<li>";
+ }
+
+
+?>
+
+
+

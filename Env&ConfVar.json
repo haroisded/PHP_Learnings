@@ -1,0 +1,28 @@
+- - - ( Environments and Configuration Flexibility ) - - -
+
+
+- making code flexible, by taking account situations,
+  where you need to use certain configurations for...
+  • Local Environment
+  • Production Environment 
+
+
+* ( Sample Problem, Old Code DSN ):
+
+
+ public function __construct(){
+
+  $dsn = "mysql:
+  host=*Your_Host;
+  port=*Your_Port;
+  dbname=*Your_DB_name;
+  user=*Your_Username;
+  charset=*Your_CharSet;
+  ";
+
+  $this -> connection = new PDO($dsn);
+
+ }
+
+
+ $results = $db -> query("*Your Query") -> fetchAll( PDO::FETCH_ASSOC ); 

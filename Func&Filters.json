@@ -1,8 +1,6 @@
 - - - ( PHP Functions & Filters ) - - -
 
 
-
-
 * ("Sample Functions & Filter"):
 
 <?php
@@ -29,7 +27,6 @@
 ?>
 
 
-
 <?php foreach (MyFilterer($array, "soccer") as $arr): ?>
 
   <div>
@@ -48,12 +45,10 @@
 
 
 
-
 * ("Sample of Lambda Function"):
 
 - a lambda function, a function without a name that can be stored in a variable, 
   passed as an argument to other functions, or returned from functions
-
 
 
 <?php
@@ -82,13 +77,10 @@
   $MyArr_Filtered = $Filter_By_Hobby($array, "soccer");
   // Transferring the Value of the Function to a Var
 
-
 ?>
 
 
-
 <?php foreach ( $MyArr_Filtered as $arr): ?>
-
 
   <div>
 

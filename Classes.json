@@ -1,0 +1,96 @@
+- - - ( Classes ) - - -
+
+
+- The purpose of Classes is to encapsulate data & acts as blueprint
+
+
+1) ( "PHP Properties" ):
+
+- {Private}:
+   the only class that has access to the "private variable",
+   is the class where the "private variable" is declared
+
+
+- {Protected}:
+  any class that isn't a "child class" of a class 
+  where a "protected variable" is declared, 
+  has no access to that "protected variable"
+  ( nearly the same as private )
+
+
+- {Public}: everyone has access to the "public variable"
+
+
+
+
+2) ( "PHP Constructor" ):
+
+- {Constructor}: 
+  a "method / function" inside a "class", that is automatically 
+  "executed", when an "object (instance of the class)" is "created"
+
+  basically "assigns data" to the "variables ( which currently 
+  has no data )" within the "class"
+
+
+- ( Sample ):
+
+  // Your Variables
+  private $brand;
+  private $color;
+
+  // Your Constructor 
+  *private/public/protected function __construct( *value1, *value2 ){
+  $this -> brand = $value1;
+  $this -> color = $value2;
+  }
+
+  // Your Instance
+  $Var_Instance = new *Your_Class( *Pass_Value#1, *Pass_Value#2 );
+
+ 
+  
+
+3) ( "PHP Accessing Variables & Method ( If Allowed/Public )" ):
+
+- ( Example(1) ):
+
+  // Class Variables
+  public $brand = volvo;
+  public $color = red;
+
+  // Access Variables
+  echo "*Instance -> *Present_Class_Variable;";
+
+  
+- ( Example(2) ):
+
+  // Access Variables within a Class, with a Method 
+  *private/public/protected function *Method_Name(){
+   return $this->brand . $this->color
+  }
+
+  // Accessing the Method in the Class ( Must be Public )
+   echo *Instance -> *Method_Name();
+
+   or  *Instance -> *Method_Name();// A Standalone Executable
+
+
+
+
+4) ( "PHP Getter & Setter Methods" ):
+
+
+- ( Getter Method, Returns values of a Class ):
+  
+ *private/public/protected function *getMethod(){ 
+ return $this -> *Present_Variable; 
+ }
+
+
+- ( Setter Method, Sets values of a Class ):
+
+ *private/public/protected function *setMethod( *value1, *value2 ){ 
+ $this -> *Present_Variable1 = *Value1;
+ $this -> *Present_Variable2 = *Value2;
+ }

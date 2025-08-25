@@ -2,17 +2,16 @@
 
 * Arrays ( DONE )
 * Associative Arrays ( DONE )
-* Functions and Filters
-* Lambda Functions
-* Separate Logic From the Template
-* Technical Check-in #1 (With Quiz)
-* Page Links
-* PHP Partials
-* Superglobals and Current Page Stylings
-* Make a PHP Router
-* Create a MySQL Database
-* PDO First Stepss
-* Extract a PHP Database Class
+* Functions and Filters ( DONE )
+* Lambda Functions ( DONE )
+* Separate Logic From the Template ( DONE )
+* Page Links ( DONE )
+* PHP Partials ( DONE )
+* Superglobals and Current Page Stylings ( DONE )
+* Make a PHP Router ( DONE )
+* Create a MySQL Database ( DONE )
+* PDO First Stepss ( DONE ) 
+* Extract a PHP Database Class ( DONE )
 * Environments and Configuration Flexibility
 * SQL Injection Vulnerabilities Explained
 * Database Tables and Indexes
