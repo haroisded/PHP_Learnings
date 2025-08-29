@@ -1,0 +1,50 @@
+- - - ( Fetch Modes and Methods ) - - - 
+
+
+
+** ( The 2 Fetch Methods ):
+
+• ( fetch() ):
+  Fetches the next single row from the result set.
+  Returns false if no more rows.
+
+• ( fetchAll() ):
+  Fetches all remaining rows in the result set into an array.
+  Returns an empty array if no rows.
+
+
+
+** ( List of Fetch Mdoes ):
+
+• ( PDO::FETCH_ASSOC ):
+  Returns an associative array indexed by column names.
+
+• ( PDO::FETCH_NUM ):
+  Returns a numeric array indexed by column position (0, 1, 2...).
+
+• ( PDO::FETCH_BOTH (default if not changed) ):
+  Returns both associative and numeric keys.
+
+• ( PDO::FETCH_OBJ ):
+  Returns results as an anonymous object, with column names as properties.
+
+• ( PDO::FETCH_CLASS ):
+  Maps results into a user-defined class (properties filled by column names).
+
+• ( PDO::FETCH_INTO ):
+  Populates an existing object instance with column values.
+
+• ( PDO::FETCH_COLUMN ):
+  Returns only a single column value (e.g., just IDs).
+
+• ( PDO::FETCH_KEY_PAIR ):
+  Returns an associative array: first column = key, second column = value.
+
+• ( PDO::FETCH_GROUP ):
+  Groups rows by the first column, values are arrays of remaining columns.
+
+• ( PDO::FETCH_UNIQUE ):
+  Returns rows keyed by the first column, discarding duplicates.
+
+• ( PDO::FETCH_FUNC ):
+  Calls a user-defined function on each row and returns the result.

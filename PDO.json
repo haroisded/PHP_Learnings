@@ -1,0 +1,140 @@
+- - - ( PDO Crash Course ) - - -
+
+
+** ( PDO ):
+- Represents a connection between PHP & DB
+
+
+** ( PDOStatement ):
+- Represents a prepared statement & after executed an associated result 
+
+
+** ( PDOException ): 
+- Represents errors raised by PDO
+
+
+
+** ( Supported Databses ):
+• MySQL 
+• PostgreSQL
+• MS SQL Server
+• Oracle
+• FireBird
+• Sybase
+• IBM
+• Informix
+• SQLite
+• FreeTDS
+• 4D
+• Cubrid
+
+
+
+** ( DSN Setup ):
+
+<?php
+
+ // Set DSN 
+ $dsn = "
+ mysql:
+ host=*Your_Hostname
+ dbname=*Your_DB
+ ";
+
+
+ // Create a PDO instance
+ $pdo = new PDO( $dsn, $db_user, $db_pass );
+
+
+ // Sets Default Data Format for FETCHED( or received ) SQL data from a query
+ $pdo->setAttribute(
+ PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+ )
+
+?>
+
+
+
+** ( User Queries ):
+
+
+* ( UNSAFE method for preparing queries ):
+
+- Not safe due to attackers having the potential to 
+  create their own SQL instructions right into the query 
+
+  in this case prepared statements are used to separate
+  instruction from the actual data
+
+
+
+( Sample Code ):
+
+<?php 
+
+• $ID = *any ID;  //Variable to be find ( also is Inputted by User )
+
+• $sql = "SELECT * FROM Users WHERE UserID = {$ID}";  //Query which uses the Variable
+
+ 
+• $Send_and_Receive = $pdo -> query( $sql ) -> fetchAll( PDO::FETCH_ASSOC );
+/*
+ Sends, Receives, Assigns & Formats received data from query
+
+ Data is received due to fetchALL method and is formatted based 
+ on the data format used in the param
+
+ Note: Since the default fetch mode has been set, you no 
+       longer need to fill the fetch mode in fetch all 
+       ( fetchAll( fetch mode ) )
+*/
+
+?>
+
+
+
+* ( SAFE method for preparing queries ):
+
+
+- In here prepared statements are used ( "Prepare" & "Execute" )
+  & also "Positional params", in order to separate both instructions
+  & data 
+
+• Prepare = method which prepares the query ( but not yet sent unlike query() )
+• Execute = method which executes & sends the query in the prepared statement  
+• Positional Params = the approach to separate instruction and data( varibale )
+
+
+
+( Sample Code #1, w/Positional Params ):
+
+<?php
+
+• $ID = *any ID; //Variable to be find ( also is Inputted by User )
+
+• $sql = "SELECT * FROM Users WHERE UserID = ?"; // "?" is the Positional Param  
+
+• $Send_and_Receive = $pdo -> prepare( $sql ); // Prepares the query 
+
+• $Send_and_Receive -> execute([ $ID, ...repeat if there's more ]);
+ // Executes the query, & variable placed in array fills the "?" param
+ // Also Contains received Unformatted data from the query
+
+• $Results = $Send_and_Receive -> fetchAll(); // Assigns, Receives & Formats received data from query
+  
+?>
+
+
+
+( Sample Code #2, w/Named Params ):
+
+<?php
+
+• $ID = *any ID; //Variable to be find ( also is Inputted by User )
+
+• $sql = "SELECT * FROM Users WHERE UserID = :Temp_ID"; // ":Temp_ID" is the Named Param ( a placeholder )
+
+• $Send_and_Receive -> execute([ 'Temp_ID' => $ID, ...repeat if there's more ]);
+  // Same principle, but the Named Param acts as a reference to the actual variable
+
+?>

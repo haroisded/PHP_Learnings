@@ -1,0 +1,98 @@
+** ( PHP & Apache Installation ):
+
+
+* ( Apache ZIP Installation ):
+
+go to:
+- https://www.apachelounge.com/download/
+
+then install: 
+- https://www.apachelounge.com/download/VS17/binaries/httpd-2.4.65-250724-  
+   Win64-VS17.zip
+
+
+
+* ( PHP installation ):
+
+* ( go to ):
+- https://www.php.net/downloads
+
+
+* ( then install ): 
+- VS17 x64 Thread Safe ( Zip 32.24MB ),
+   
+   in the php folder, you may confirm if you downloaded a 
+   "Thread Safe" version if you can locate: php8apache2_4.dll
+
+
+* ( Run PHP commands ):
+grab Directory path of php, then add this 
+
+B:\php-8.4.11 or C:\php-8.4.11  
+
+to Environment Variable PATH, to run php commands in terminal
+
+
+
+** ( Apache Setup & Installation ): 
+
+- after installation ,extract zip to local drive, then 
+   put Apache24 as a standalone directory
+   ( C:\Apache24 )
+
+- then run CMD prompt as admin, go to C:\Apache24\bin,
+   then run: httpd -k install
+
+
+
+** ( Apache Configs ):
+
+- then go to, C:\Apache24\conf, find & open file 
+  httpd.conf, then apply following configurations 
+
+
+* ( Find "#Server" name, remove comment, then replace w/this ):
+• ServerName localhost:80 
+
+
+* ( Add to the bottom files, for apache to Serve PHP files )
+
+# Load PHP into Apache
+LoadModule php_module "c:/php-8.4.11/php8apache2_4.dll"
+PHPIniDir "c:/php-8.4.11"
+
+# Handle .php files
+AddType application/x-httpd-php .php
+
+
+* ( Find directory index, and add index.php to immediately run Index.php file ):
+• DirectoryIndex index.php index.html 
+
+
+
+** ( Batch file Shortcut ):
+
+* ( Start Apache Shortcut ):
+
+Create a file.bat, then edit in notepad and add...
+
+@echo off
+net start Apache2.4
+pause 
+
+a shortcut for Running an Apache Server,
+right click file, and Run as admin to Run Server
+
+
+
+* ( Start Apache Shortcut ):
+
+Create another file.bat, then edit in notepad and add...
+
+@echo off
+net stop Apache2.4
+pause 
+
+a shortcut for stopping the Running Apache Server,
+right click file, and Run as admin to Stop Apache Server
+from running
