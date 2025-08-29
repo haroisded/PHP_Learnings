@@ -1,0 +1,80 @@
+*** ( Tailwind Basics ):
+
+
+- - - ( Margin ) - - -
+m-4       <!-- margin on all sides -->
+mx-4      <!-- margin left & right -->
+my-4      <!-- margin top & bottom -->
+mt-4      <!-- margin top -->
+mr-4      <!-- margin right -->
+mb-4      <!-- margin bottom -->
+ml-4      <!-- margin left -->
+
+<!-- Negative margins -->
+-mt-2     <!-- negative top margin -->
+
+
+
+- - - ( Padding ) - - -
+p-4       <!-- padding on all sides -->
+px-4      <!-- padding left & right -->
+py-4      <!-- padding top & bottom -->
+pt-4      <!-- padding top -->
+pr-4      <!-- padding right -->
+pb-4      <!-- padding bottom -->
+pl-4      <!-- padding left -->
+
+
+
+- - - ( Height & Width ) - - -
+w-0, w-1, w-2 ... w-96   <!-- fixed width scale -->
+w-full                   <!-- 100% width -->
+w-screen                 <!-- 100vw -->
+min-w-full               <!-- min width 100% -->
+max-w-sm, max-w-md ...   <!-- max width -->
+
+h-0, h-1, h-2 ... h-96   <!-- fixed height scale -->
+h-full                   <!-- 100% height -->
+h-screen                 <!-- 100vh -->
+min-h-screen             <!-- min height 100vh -->
+
+
+
+- - - ( Position ) - - - 
+static        <!-- default -->
+relative
+absolute
+fixed
+sticky
+
+top-0, right-0, bottom-0, left-0   <!-- position offsets -->
+inset-0       <!-- top/right/bottom/left: 0 -->
+inset-x-0     <!-- left & right: 0 -->
+inset-y-0     <!-- top & bottom: 0 -->
+
+
+
+- - - ( Flex Properties ) - - -
+flex               <!-- display: flex -->
+inline-flex        <!-- display: inline-flex -->
+
+flex-row           <!-- horizontal (default) -->
+flex-col           <!-- vertical -->
+
+justify-start      <!-- align items left/top -->
+justify-center     <!-- align items center -->
+justify-end        <!-- align items right/bottom -->
+justify-between    <!-- space between -->
+justify-around     <!-- space around -->
+justify-evenly     <!-- space evenly -->
+
+items-start        <!-- align-items: flex-start -->
+items-center       <!-- align-items: center -->
+items-end          <!-- align-items: flex-end -->
+items-stretch      <!-- stretch -->
+
+flex-wrap          <!-- wrap children -->
+flex-nowrap        <!-- no wrap -->
+flex-grow          <!-- grow -->
+flex-shrink        <!-- shrink -->
+flex-none          <!-- fixed size -->
