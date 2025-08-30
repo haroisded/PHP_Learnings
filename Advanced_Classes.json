@@ -1,0 +1,215 @@
+- - - ( Advance PHP Classes ) - - -
+
+
+** ( Typed Properties ):
+
+- Assigning a Data Type to variables ( e.g.. float, string etc.. ):
+
+- Values that are uninitialized & called....
+  • w/o Assigning Data types, has default value of "NULL", 
+  • w/ Assigned Data type, it's simply a "uninitialzed("Data Type")"
+
+- but a typed property can also be null by adding a "?" next to the Variable,
+  making it... 
+  • float or null allowed
+  • allows property to default to null instead of being "uninitialized (Type)".
+
+- "declare(strict_types=1);", makes PHP enforce strict rules, e.g..
+  • class Transaction { public float $amount; }   
+  • $t->amount = "10.5"; // ❌ TypeError (string not allowed in strict mode)
+
+
+* ( Example ):
+
+ declare(strict_types=1);
+
+ class Transaction {
+  public float $amount;
+  public string $description;
+
+  public ?float $amount = null;  
+ }
+
+
+
+** ( Method Chaining ):
+
+- Shortens, Method "return" Syntax ( "return $this;" )  
+
+- Allows to chain method calls, shortening the 
+  syntax of calling multiple methods 
+
+- Strict Return type declaration, by making sure returned
+  values, are only returned to the assigned Class / Object
+
+
+ * ( Example ):
+
+class User{ 
+
+ private string $name;
+ private int $age;
+ private double? $money;
+ private string? $job;
+
+
+ public function User_Descrpt(string $name, int $age): User {
+  $this -> name = $name;
+  $this -> age = $age;
+
+  return $this;
+ }
+
+
+ public function User_Job(string $job, double $money): User {
+  $this -> job = $job;
+  $this -> money = $money;
+
+  return $this;
+ }
+
+}
+
+
+$User1 = new User();
+
+$User  
+-> User_Descrpt("Bob", 10)
+-> User_Job("Chef", 2000.00 );
+
+
+
+** ( Other Return Type Declarations ):
+
+* ( Scalar type ):
+: int → must return an integer
+
+: float → must return a floating-point number
+
+: string → must return a string
+
+: bool → must return a boolean (true or false)
+
+
+* ( Special types ):
+: void → returns nothing
+
+: mixed → can return any type (int, string, object, null, etc.)
+
+: null → must return null only
+
+: never → function never returns at all (because it always throws an exception or dies)
+
+
+* ( Class / Interface types ):
+: *Assigned_Class → must return an object of class *Assigned_Class
+
+: static → must return an object to the class where the method was originally written
+
+: parent → must return an object to the parent class
+
+
+
+** ( Destructors ):
+
+- destructor (__destruct) is a method, invoked whenever the 
+  last reference to an object disappears, like calling a class
+  method that can overwrite an Instance etc...
+
+
+* ( Condiitons to Invoke Destructor ):
+
+1) ( Going out of scope ):
+
+function test() { $obj = new stdClass(); }
+// <- when function ends, $obj is gone, so object destroyed
+
+
+2) ( Explicitly unset() ):
+
+$obj = new stdClass();
+unset($obj); // object destroyed here
+
+
+3) ( Assigning null (removing last reference) ):
+
+$obj = new stdClass();
+$obj = null; // object destroyed
+
+
+4) ( Overwriting with another object ):
+
+$obj = new stdClass();
+$obj = new stdClass(); // old object destroyed, replaced by new
+
+
+
+
+** ( Inheritance ):
+
+
+
+** ( Traits ):
+
+
+
+** ( Magic Methods ):
+
+
+
+** ( Abstract Classes ):
+
+- An abstract class is basically a normal class with some restrictions:
+• It can have properties and regular methods just like a normal class.
+• It cannot be instantiated directly (new AbstractClass() is not allowed).
+• It's designed to be a parent class that other classes extend from.
+• It can also define abstract methods, methods without code that 
+  child classes must implement.
+
+
+
+
+
+** ( Anonymous Classes ):
+
+
+* ( Example(1), Simple Class ):
+
+ $object = new class {
+   public function greet() { return "Hello!"; }
+ };
+
+ echo $object->greet();  // Outputs: Hello!
+
+
+
+* ( Example(2), w/Constructor ):
+
+ $person = new class("Alice") {
+     public $name;
+
+     public function __construct($name) {
+         $this->name = $name;
+     }
+
+     public function greet() {
+         return "Hi, I am {$this->name}";
+     }
+ };
+
+ echo $person->greet();  // Outputs: Hi, I am Alice
+
+
+
+* ( Example(3), w/Inheritance ):
+
+ class Base {
+     public function sayHello() { return "Hello from Base!"; }
+ }
+
+ $child = new class extends Base {
+     public function sayHello() { return "Hello from Anonymous Child!"; }
+ };
+
+ echo $child->sayHello();  // Outputs: Hello from Anonymous Child!
+

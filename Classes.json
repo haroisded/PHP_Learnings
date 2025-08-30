@@ -33,7 +33,7 @@
   has no data )" within the "class"
 
 
-- ( Sample ):
+- ( Example ):
 
   // Your Variables
   private $brand;
@@ -48,10 +48,39 @@
   // Your Instance
   $Var_Instance = new *Your_Class( *Pass_Value#1, *Pass_Value#2 );
 
+
+
+
+3) ( "Constructor Property Promotion "):
+
+- a feature that lets you "declare & initialize" "class properties",
+  directly in the "constructor parameters", 
+  
+  while "normal class properties" are "declared" "outside" the "constructor",
+  they can be "initialized" in the "constructor body( {} )" or "Later"
+
+
+
+- ( Example ):
+
+class User {
+    // Normal class property (non-promoted property)
+    public string $role; 
+
+    // Promoted properties
+    public function __construct(
+        public string $name,
+        public int $age
+    ) {
+        // Initialize non-promoted properties here
+        $this->role = "guest";
+    }
+}
  
   
 
-3) ( "PHP Accessing Variables & Method ( If Allowed/Public )" ):
+
+4) ( "PHP Accessing Variables & Method ( If Allowed/Public )" ):
 
 - ( Example(1) ):
 
@@ -78,7 +107,7 @@
 
 
 
-4) ( "PHP Getter & Setter Methods" ):
+5) ( "PHP Getter & Setter Methods" ):
 
 
 - ( Getter Method, Returns values of a Class ):
