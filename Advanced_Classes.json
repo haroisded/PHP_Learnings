@@ -1,7 +1,7 @@
-- - - ( Advance PHP Classes ) - - -
+** ( Advance PHP Classes ):
 
 
-** ( Typed Properties ):
+- - - ( Typed Properties ) - - -
 
 - Assigning a Data Type to variables ( e.g.. float, string etc.. ):
 
@@ -9,30 +9,25 @@
   • w/o Assigning Data types, has default value of "NULL", 
   • w/ Assigned Data type, it's simply a "uninitialzed("Data Type")"
 
-- but a typed property can also be null by adding a "?" next to the Variable,
-  making it... 
+- but a typed property can also be null, by adding a "?" next to the property,
+  it makes the property... 
   • float or null allowed
-  • allows property to default to null instead of being "uninitialized (Type)".
-
-- "declare(strict_types=1);", makes PHP enforce strict rules, e.g..
-  • class Transaction { public float $amount; }   
-  • $t->amount = "10.5"; // ❌ TypeError (string not allowed in strict mode)
+  • allows property to default to null instead of being "uninitialized (Type)"
 
 
 * ( Example ):
 
- declare(strict_types=1);
-
  class Transaction {
-  public float $amount;
+  public float $num1, float $num2 ;
   public string $description;
 
-  public ?float $amount = null;  
+  public ?float $num1, float $num2  = null;  
  }
 
 
 
-** ( Method Chaining ):
+
+- - - ( Method Chaining ) - - -
 
 - Shortens, Method "return" Syntax ( "return $this;" )  
 
@@ -79,7 +74,18 @@ $User
 
 
 
-** ( Other Return Type Declarations ):
+
+- - - ( Return Type Declarations ) - - -
+
+- They specify the type of value a function or method must return.
+
+- Always enforced regardless of declare(strict_types=1);.
+
+- If the returned value doesn't match the declared type → TypeError.
+
+- Does not convert the return value, it only checks the type.
+
+
 
 * ( Scalar type ):
 : int → must return an integer
@@ -110,7 +116,8 @@ $User
 
 
 
-** ( Destructors ):
+
+- - - ( Destructors ) - - -
 
 - destructor (__destruct) is a method, invoked whenever the 
   last reference to an object disappears, like calling a class
@@ -145,32 +152,351 @@ $obj = new stdClass(); // old object destroyed, replaced by new
 
 
 
-** ( Inheritance ):
+- - -( Magic Methods ) - - -
 
+- are special methods that overrides php's default behaviour
+  when certain event or action is performed on an object, 
 
+  these magic methods are invoked when...
 
-** ( Traits ):
-
-
-
-** ( Magic Methods ):
-
-
-
-** ( Abstract Classes ):
-
-- An abstract class is basically a normal class with some restrictions:
-• It can have properties and regular methods just like a normal class.
-• It cannot be instantiated directly (new AbstractClass() is not allowed).
-• It's designed to be a parent class that other classes extend from.
-• It can also define abstract methods, methods without code that 
-  child classes must implement.
+• __get();// accessing, undefined / inaccessible properties
+• __set();// assigning values on, undefined / inaccessible properties
+• __isset();// isset() or empty(), is used on undefined / inaccessible properties
+• __unset();// unset() is used on undefined / inaccessible property
+• __call();// calling a method that doesn't exists
+• __callStatic();// calling a static method that doesn't exists
+• __invoke();// calling a Class Instance as a function
+• __construct();
+• __destruct();
+• __toString()
+• __debugInfo()
 
 
 
 
+- - - ( Inheritance & Composition ) - - -
 
-** ( Anonymous Classes ):
+
+* ( Inheritance ):
+
+- Inheritance allows a class (child) to derive(receive) 
+  from another class (parent or base class)
+  
+  The child class automatically inherits Public & Protected:
+  • Methods
+  • Properties
+  • Constants
+
+
+- Scope Resolution Operator( ":: method/variable "):
+   tells which scope or context you are referencing / using,
+   e.g..
+  • parent::
+  • ChildClass::
+  • self::
+  • ClassName::
+
+
+( Example Inheritance Code w/ Scope Resolution ):
+
+// Parent class
+class Toaster {
+
+  protected int $maxSlices = 2;
+
+  public function toast() {...}
+  public function info() {...}
+}
+
+
+// Child class
+class ToasterPro extends Toaster {
+
+  public function toastPro() {...}
+
+  public function showInfo() {
+  parent::info(); // Call parent method
+  self::toastPro(); // Call self method
+  ToasterPro::toastPro(); // Call ChildClass method explicitly
+  }
+}
+
+// Usage
+$pro = new ToasterPro(); //Instance
+$pro->toast(); // inherited method from parent
+$pro->showInfo(); // Self Method
+
+
+
+* ( Composition ):
+
+- a way to reuse code by including an instance 
+  of another class as a property, instead of inheriting 
+  from it
+
+  explicitly choosing which functionality to use, so you 
+  avoid inheriting unnecessary methods or properties
+
+
+( Example ): 
+
+ 
+class Toaster {
+  protected int $maxSlices = 2;
+
+  public function toast() {...}
+}
+
+
+class FancyOven {
+
+  // property w/Type Declaration, holding an instance of class Toaster
+  public Toaster $toaster = new Toaster();
+
+  // calls method from composed object
+  public function toastOven() { $this->toaster->toast(); }
+
+  // calls self method 
+  public function showInfo() {...}
+}
+
+
+$oven = new FancyOven();
+$oven->toastOven();   // calls method from composed object
+$oven->showInfo(); // calls self method
+
+
+
+
+- - - ( Static ) - - -
+
+
+- "Access without creating an instance",
+  You don't need to make an object to use static 
+  properties or methods; you can call them directly 
+  from the class
+
+- "Shared across all objects of the class", 
+  The static data is the same everywhere it's used, 
+  so changes in one place affect all references
+
+- "Useful for - Utility or helper functions", 
+  counters, configuration values, or any data that 
+  should be consistent across the class
+
+- Note: No "$this:" Static methods cannot use "$this" a
+  (they don't have object context)
+
+
+* ( Example code of Static w/Inheritance ):
+
+// Parent class
+class ParentClass {
+  public static string $version = "1.0";
+
+  public static function showVersion() {
+      echo "Version: " . self::$version . "\n";
+    }
+}
+
+
+// Child class
+class ChildClass extends ParentClass {...}
+
+
+ChildClass::showVersion();      // Version: 1.0
+echo ChildClass::$version . "\n"; // 1.0
+
+
+
+
+- - -( Abstract Classes ) - - -
+
+
+- defines a set of requirements that classes must follow, 
+  specifying what methods they must implement without 
+  defining how they should be implemented, and...
+
+
+• Cannot be Instantiated
+• Classes can extend only one abstract class
+• Can have properties & constants
+• Can have "abstract methods" & "implemented methods", 
+  containing only the signature, "w/o implementation"
+  ( which child classes are required implement )
+
+
+* ( Example Code, Abstract Classes, Concrete Classes & Functions ):
+
+// Abstract Class
+abstract class Math_Operations {
+    abstract public function add_oper(float $num1, float $num2): float;
+    public function minus_oper(float $num1, float $num2): float;
+
+    abstract public function mult_oper(float $num1, float $num2): float;
+    public function div_oper(float $num1, float $num2): float;
+}
+
+
+// Extending the Abstract Class
+class Math_Subject extends Math_Operations {
+    
+    public function add_oper(float $num1, float $num2 ): float 
+    { /* Put your implementation here */ } 
+    
+    public function mult_oper(float $num1, float $num2 ): float 
+    { /* Put your implementation here */ } 
+}
+
+
+//Usage
+$Math_Subj = new Math_Subject();
+
+$Math_Subj -> add_oper(5, 10); // 15
+$Math_Subj -> mult_oper(5, 10); // 50
+
+
+
+
+- - - ( Interfaces ) - - -
+
+
+- defines a set of requirements that classes must follow, 
+  specifying what methods they must implement without 
+  defining how they should be implemented, and...
+
+• It's designed to be a parent class that other classes can extend from
+• Classes can extend multiple interface classes
+• Cannot be Instantiated
+• Interfaces Can extend themselves 
+• Can only contain method ( "w/o implementations" ) & constants
+  ( all methods declared, must be used by a class )
+
+
+
+* ( Example Code, Interfaces, Classes & Functions ):
+
+// First interface
+interface Math_Operations {
+    public function add_oper(float $num1, float $num2): float;
+    public function minus_oper(float $num1, float $num2): float;
+}
+
+// Second interface  
+interface Advanced_Operations {
+    public function mult_oper(float $num1, float $num2): float;
+    public function div_oper(float $num1, float $num2): float;
+}
+
+
+// Implementing the interface
+class Math_Subject implements Math_Operations, Advanced_Operations {
+    
+    public function add_oper(float $num1, float $num2 ): float 
+    { /* Put your implementation here */ } 
+    
+    public function minus_oper(float $num1, float $num2 ): float
+    { /* Put your implementation here */ } 
+
+    public function mult_oper(float $num1, float $num2 ): float 
+    { /* Put your implementation here */ } 
+    
+    public function div_oper(float $num1, float $num2 ): float
+    { /* Put your implementation here */ } 
+}
+
+
+//Usage
+$Math_Subj = new Math_Subject();
+
+$Math_Subj -> add_oper(5, 10); // 15
+$Math_Subj -> mult_oper(5, 10); // 50
+
+
+
+
+- - - ( Traits ) - - -
+
+
+- a way to reuse code across different classes:
+• Can contain methods & properties that can be "Copy/Pasted" in classes
+• Cannot be Instantiated
+• Designed to be used within classes 
+• Multiple traits, Can be combined in a single class
+• Can resolve method name conflicts using insteadof and as (alias)
+
+
+( Example of Traits(1) ):
+
+// Traits 
+trait LoggerTrait {
+  public string $logMessage = "Default log message";
+}
+
+trait MailTrait {
+  function sendEmail() {...}
+  function sendNotification() {...}
+}
+
+
+// Use traits in classes
+class User { use LoggerTrait; }
+
+class Admin { use LoggerTrait, MailTrait; }
+
+
+// Example usage
+$user = new User();
+echo { $user->logMessage }; // Outputs: Default log message
+
+$admin = new Admin();
+echo { $admin->logMessage }; // Outputs: Default log message
+$admin->sendEmail();         // Calls method from MailTrait
+$admin->sendNotification();  // Calls method from MailTrait
+
+
+
+* ( "insteadof" & "as" ):
+
+- "insteadof", tells PHP which trait's method to use 
+   when two traits have the same method name
+
+- "as", lets you create an alias for a method 
+   from a trait (can also change visibility)
+
+
+( Example of Traits w/"insteadof" & "as" ):
+
+//Traits
+trait Hello_A {
+  function hello() { echo "Hello from A\n"; }
+}
+
+trait Hello_B {
+  function hello() { echo "Hello from B\n"; }
+}
+
+//Classes
+class MyClass {
+  use Hello_A, Hello_B {
+
+      Hello_A::hello insteadof Hello_B; // Use A's hello() instead of B's ( "insteadof" )
+      Hello_B::hello as MyHello_B;   // Give B's hello() an alias ( "as" )
+    }
+}
+
+//Usage
+$obj = new MyClass(); //Instance
+$obj->hello();   // Hello from Hello_A
+$obj->helloB();  // Hello from Hello_B
+
+
+
+
+- - - ( Anonymous Classes ) - - -
+
+
+- Classes that are created, then assigned in a variable
 
 
 * ( Example(1), Simple Class ):

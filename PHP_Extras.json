@@ -1,20 +1,196 @@
 - - - ( PHP Extras ) - - -
 
 
+
+** ( ALL PHP Data Types ):
+
+* ( Scalar Types (4) ):
+• bool
+• int
+• float
+• string
+
+
+* ( Compound Types (4) ):
+• array
+• object
+• callable
+• iterable
+
+
+* ( Special Types ): 
+• null
+• "resource", a special variable type that holds a reference 
+   to an external resource outside of PHP's memory
+
+
+
+
+** ( Heredoc & Nowdoc ):
+
+- Useful for multi-line strings
+
+
+
+* ( Example ):
+
+$x = 1;
+$y = 2;
+
+
+( Heredoc ):
+$text = <<MyText
+Line 1 $x
+Line 2 $y
+Line 3 
+MyText;
+
+/* 
+Outputs:
+Line 1 1
+Line 2 2
+Line 3 
+*/
+
+
+( Nowdoc ):
+$text = <<'MyText' //Must be Single quotes
+Line 1 $x
+Line 2 $y
+Line 3 
+MyText;
+
+/* 
+Outputs:
+Line 1 $x
+Line 2 $y
+Line 3 
+*/
+
+
+
+
 ** ( Include & Require ):
+
+- both functions are used to include contents of separated files 
+
+- the difference of "Include" & "Require" is that
+
+• If a "Included Script" contains or doesn't exist, 
+  it only stops "that" included Script, then the rest
+  of the Scipt where it was included goes on
+
+• If a "Required Script" contains errors or doesn't exist, 
+  it stops "that" Script, and the Script where it was Required 
+  
+
+  
+* ( Require Once & Include Once ):
+
+- The Functionality of Adding Once to both "Require & Include"
+  are the same, 
+  
+  they prevent duplicates / 2 Same files, to be "Included" / "Required" 
+  
+  by Running the first "Include / Require" & "discarding" the "Repeated Call"
+
+
+
+* ( Cascading Effect Example ):
+
+ - hello_function.php// contains the function to say hello world 
+   hello_output.php // calls the function
+   index.php()// both files are included in the index.php
+   "hello_output.php" can call the function, only because...
+
+ • both files are "included" / "required" in the same file  
+
+ • "Cascading Effect", the file that contains the function 
+   that will be called by "hello_output.php", is declared first
+
 
 
 
 ** ( Namespaces ):
 
+- A function that prevents...
+• functions
+• classes
+• constants 
+  from having duplicated names of the same type
+
+ 
+- also acts like a "path" / "container", that organizes 
+  code into logical groups & makes it easier to "import" 
+  "w/use"
 
 
-** ( PHP Coding Standards ):
+
+* ( Sample of Duplicate Names ):
+
+ namespace Hello1\Hello2;
+
+ function Hello1(){...}
+ function Hello1(){...}
+ //functions w/same names causes Error
+
+
+ class Hello2{...}
+ class Hello2{...}
+ //classes w/same names causes Error
 
 
 
-** ( Typecasting ):
+* ( Sample of Creating Namespace Paths & "Using" them ):
+
+ ( Math.php ):
+
+ namespace MyMath\Operations;//Created Namespace #1
+ 
+ function add(){...}//Part of Namespace #1
+
+
+ namespace MyMath\Names;//Newly Created Namespace #2
+ 
+ const PI = 3.14159;//Part of Namespace #2
 
 
 
-** ( Error Handling & Error Handlers ):
+ ( index.php ):
+
+ require "Math.php";
+
+ use MyMath\Operations\add;
+ use MyMath\Names\PI;
+
+ $a = add();
+ $b = PI;
+
+
+  
+* ( Sample of Namespace Path w/Use ): 
+
+ // ✅ Step 1: actually load the file
+ require "Models/User.php";
+
+ // ✅ Step 2: shorten namespace paths with `use`
+ use App\Models\Class;
+ use App\Models\Function;
+ use App\Models\Constant;
+
+ // ✅ Step 3: Assign
+ $a = new Class();
+ $b = Function();
+ $c = Constant;
+
+
+
+
+** ( declare(strict_types=1); ):
+
+- this code enforces strict typing on the Script that it was 
+  declared 
+
+- Without it, PHP uses "weak typing"( converts values automatically )
+
+- It only affects function/method "parameters" & "return types"

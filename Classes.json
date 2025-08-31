@@ -4,7 +4,7 @@
 - The purpose of Classes is to encapsulate data & acts as blueprint
 
 
-1) ( "PHP Properties" ):
+1) ( "PHP Access Modifiers / Access Specifiers" ):
 
 - {Private}:
    the only class that has access to the "private variable",
