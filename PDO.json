@@ -134,6 +134,8 @@
 
 • $sql = "SELECT * FROM Users WHERE UserID = :Temp_ID"; // ":Temp_ID" is the Named Param ( a placeholder )
 
+• $Send_and_Receive = $pdo -> prepare( $sql ); // Prepares the query 
+
 • $Send_and_Receive -> execute([ 'Temp_ID' => $ID, ...repeat if there's more ]);
   // Same principle, but the Named Param acts as a reference to the actual variable
 

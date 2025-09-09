@@ -1,8 +1,7 @@
-- - - ( PHP Extras ) - - -
+** ( PHP Extras ):
 
 
-
-** ( ALL PHP Data Types ):
+- - - ( ALL PHP Data Types ) - - -
 
 * ( Scalar Types (4) ):
 • bool
@@ -26,7 +25,135 @@
 
 
 
-** ( Heredoc & Nowdoc ):
+- - - ( PHP null related / handling operators ) - - -
+
+
+  1)( ?? → Null coalescing operator ):
+
+  Returns the left-hand value if it exists and is not null, 
+  otherwise returns the right-hand value, e.g..
+
+  • "$name = $_GET['name'] ?? 'Guest';"
+
+
+
+  2)( ?-> → Nullsafe operator ):
+
+  Safely accesses properties or methods of an object that 
+  could be null, e.g..
+
+  • "$city = $user?->profile?->address?->city;"
+
+
+
+  3)( ??= → Null coalescing assignment operator ):
+
+  Safely accesses properties or methods of an object that 
+  could be null
+
+  If any part of the chain is null, the whole expression returns 
+  null instead of throwing an error
+
+  • "?Type → Nullable type hint / nullable type declaration"
+
+
+
+  4)( Nullable type ?Type ):
+
+  Allows a property, parameter, or return value to be 
+  either the specified type or null
+
+  Useful for type safety while allowing null values
+
+  • "public ?float $price;"
+  • "function setScore(?int $score) { ... }"
+  • "function findUser(int $id): ?User { ... }"
+
+
+
+
+- - - ( PHP String Functions ) - - - 
+
+
+1)( explode() ):
+
+- splits a string into an array of substrings, based on a delimiter.
+
+ 
+  ( Example ):
+
+  $fruits = "apple | banana ? orange"; 
+  $parts = explode(" ? ", $fruits)[0];
+
+  print_r($parts);
+
+  /* 
+  outputs: apple | banana
+
+  array: 
+  [0] = apple | banana
+  [1] =  orange
+  */
+
+
+
+2)( implode() ):
+
+- Joins an array into a string with a separator
+
+
+  ( Example ):
+
+  $fruits = ["apple", "banana", "orange"];
+  echo implode(" | ", $fruits);
+  // apple | banana | orange
+
+
+
+3)( str_split() ):
+
+- Splits a string into an array, but by character or chunk size.
+
+
+  ( Example ):
+
+• $str = "hello";
+  print_r(str_split($str));
+  // ['h', 'e', 'l', 'l', 'o']
+
+
+• print_r(str_split("123456", 2));
+  // ['12', '34', '56']
+
+
+
+4)( substr() ):
+
+- Extracts part of a string by position
+
+
+  ( Example ):
+  
+  echo substr("Hello World", 0, 5); // Hello
+
+
+
+5) ( preg_split() ):
+
+- Like explode(), but uses a regex pattern instead of a simple delimiter
+
+
+ ( Example ):
+
+  $str = "one, two; three|four";
+  $parts = preg_split("/[;,|]\s*/", $str);
+  print_r($parts);
+  // ['one', 'two', 'three', 'four']
+
+
+
+
+- - - ( Heredoc & Nowdoc ) - - -
 
 - Useful for multi-line strings
 
@@ -70,7 +197,86 @@ Line 3
 
 
 
-** ( Include & Require ):
+- - - ( Switch vs Match ) - - - 
+
+
+- functionality & concept wise. theyre the same, but
+  their differences lies in comparison
+• "Switch" = Loose Comparison 
+• "Match" = Strict Comparison
+
+  for "loose comparison", it sees 1 & "1" as the same, 
+  while in "strict comparison", it does not
+
+
+- another is that, values in switch must be constatant 
+  unlike, match which allows expressions 
+
+
+- Lastly, you can assign Match to a variable, in which 
+  it returns the value that matches the key, while in
+  Switch you can't 
+
+
+
+* ( Switch ):
+
+  $fruit = "apple";
+  $str = "apple";
+
+  switch ($fruit) {
+      case $str:  // ❌ Not allowed: case value must be constant
+          echo "It's an apple!";
+          break;
+      case "banana":
+          echo "It's a banana!";
+          break;
+      default:
+          echo "Unknown fruit";
+  }
+
+
+  ( Problems / Limitations ):
+
+  • Case values must be constants, cannot use variables like $str.
+
+  • Loose comparison (==) is used, so type juggling can happen.
+
+  • Cannot directly assign switch to a variable.
+
+  • Risk of fall-through if break is forgotten.
+
+
+
+* ( Match ):
+
+  $fruit = "apple";
+  $str = "apple";
+
+  $result = match($fruit) {
+      $str => "It's an apple!",  // ✅ Allowed: variables or expressions
+      "banana" => "It's a banana!",
+      default => "Unknown fruit",
+  };
+
+  echo $result;
+
+
+  ( Advantages of match: ):
+
+  • Strict comparison (===) → no type juggling.
+
+  • Can use variables or expressions as case values.
+
+  • Returns a value → assign directly to a variable.
+
+  • No fall-through → cleaner and safer.
+
+
+
+
+- - - ( Include & Require ) - - -
+
 
 - both functions are used to include contents of separated files 
 
@@ -111,7 +317,7 @@ Line 3
 
 
 
-** ( Namespaces ):
+- - - ( Namespaces ) - - -
 
 - A function that prevents...
 • functions
@@ -186,7 +392,7 @@ Line 3
 
 
 
-** ( declare(strict_types=1); ):
+- - - ( declare(strict_types=1); ) - - -
 
 - this code enforces strict typing on the Script that it was 
   declared 
@@ -194,3 +400,55 @@ Line 3
 - Without it, PHP uses "weak typing"( converts values automatically )
 
 - It only affects function/method "parameters" & "return types"
+
+
+
+
+- - - ( Autoloading ) - - -
+
+- a way to use classses, w/o using "include" or "require",
+  multiple times on the file path, where those classes 
+  are stored 
+
+
+• ( Sample of Autoloading #1, w/o namespace ): 
+
+  spl_autoload_register(function ($class) {
+    $path = __DIR__ . '/' . $class . '.php';
+
+    if (file_exists($path)) { require $path; }
+  });
+
+  
+  
+• ( Sample of Autoloading #2, w/namespace ): 
+
+  spl_autoload_register(function ($class) {
+    $path = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
+
+    if (file_exists($path)) { require $path; }
+  });
+
+
+
+• ( Example of Autoloading #3, w/Composer & PSR-4 ):
+
+
+( From composer.json ):
+
+  "autoload": {
+    "psr-4": {
+      "*Namespace/Class\\": "*Directory of the Class"
+    }
+  }
+
+
+( Composer CMD & require autoload.php ):
+
+  CMD: composer dump-autoload
+  //generate & autoload the script, which will create a vendor folder  
+  //( note: CMD must be done when a new Namespace(s) is added )
+  
+
+  CODE: require "vendor/autoload.php";
+  //to include the file to your script 
