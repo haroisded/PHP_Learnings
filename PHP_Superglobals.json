@@ -1,0 +1,128 @@
+- - - ( PHP Superglobals ) - - -
+
+• $_SERVER
+• $_SESSION
+• $_COOKIE
+• $_ENV
+
+
+** ( $_SERVER ): 
+
+- contains the information about the server & execution environment,
+  below returns these informations, e.g..
+
+ 
+• $_SERVER['PHP_SELF'] → The filename of the currently executing script, 
+   based on the request URI, starting from the web root folder (e.g., "/index.php")
+
+• $_SERVER['SCRIPT_FILENAME'] → The absolute path( of server's filesystem ) 
+  to the current script (e.g., "/var/www/html/index.php")
+
+• $_SERVER['DOCUMENT_ROOT'] → The document root directory( of server's filesystem ) 
+  under which the script is executing (e.g., "/var/www/html")
+
+• $_SERVER['REQUEST_URI'] → The full URI (e.g., "/page.php?id=5")
+
+• $_SERVER['QUERY_STRING'] → The query string after the ? in the URL (e.g., "id=5&sort=asc")
+
+• $_SERVER['HTTP_HOST'] → The host name from the request header (e.g., "localhost, example.com")
+
+• $_SERVER['SERVER_NAME'] → The server's configured hostname (e.g., "example.com")
+
+• $_SERVER['SERVER_ADDR'] → The server's IP address (e.g., "192.168.1.10")
+
+• $_SERVER['SERVER_PORT'] → The port number the request was sent to (e.g., "80, 443")
+
+• $_SERVER['REMOTE_ADDR'] → The IP address of the client (visitor)
+
+• $_SERVER['REQUEST_METHOD'] → The request method used (e.g., "GET, POST")
+
+
+
+
+** ( $_SESSION ): 
+
+- can be used to retain the state, "sessions" 
+  are stored in the "server side"
+
+  "sessions" are destroyed as soon as the 
+  browser is closed 
+
+
+* ( Code ):
+
+• session_start(); //To use the Session & the SuperGlobals in the Session
+
+• $_SESSION["*your key#1"] = *your value
+• echo $_SESSION["*your key#1"];
+  //Assigning and Echoing key/value Session pair  
+
+• session_destroy();
+  //after the script finishes & the next request comes in, 
+  //every key–value pair is lost from the session permanently
+
+
+
+
+** ( $_COOKIE ): 
+
+- can be used to retain the state, "cookies"
+  are stored in the "client side"
+
+  "cookies" remain depending on the setted expiration
+  data or until the cookies are deleted 
+
+
+
+
+** ( $_ENV ): 
+
+- .env files, are mostly used to store configuration settings in
+  environment variables, 
+  
+  environment variables are values stored within the operating 
+  system in which the application can access
+
+  w/.env files, you can use, secured stored values in your PHP code
+
+
+* ( Requirements & Code ):
+
+1) Create a ".env" file
+
+
+2) Syntax defining values, within ".env" file
+- DATABASE_Hostname = localhost
+- DATABASE_Username = db_username
+- DATABASE_Password = db_password
+- DATABASE_Name = db_name
+
+
+3) To read the ".env" file, it will require a 
+   3rd Party Package( e.g.. PHP dotenv )
+
+   CMD: composer require vlucas/phpdotenv 
+
+
+4) ( Complete Code ): 
+
+  require __DIR__ . "/vendor/autoload.php";
+  // requiring the autoloader in the PHP Script
+
+
+  $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+  // Creates a Dotenv object that will look for a ".env" file in the current script’s directory (__DIR__).
+  // It uses the immutable mode, meaning once variables are loaded, they cannot be changed during
+
+
+  $dotenv -> load();
+  //to actually put the values from the ".env" file, into $_ENV.
+  
+  
+  $mysqli = new mysqli(
+            $_ENV["DATABASE_Hostname"],
+            $_ENV["DATABASE_Username"],
+            $_ENV["DATABASE_Password"],
+            $_ENV["DATABASE_Name"]
+            );
+  //Using the values from the .env file, for Database Connection

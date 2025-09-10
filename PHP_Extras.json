@@ -452,3 +452,21 @@ Line 3
 
   CODE: require "vendor/autoload.php";
   //to include the file to your script 
+
+
+
+
+- - - ( Response Headers ) - - -
+
+• header("Location: /newpage.php"); // Redirects the client to another page.
+
+• header("Content-Type: application/json"); // Defines response format (HTML, JSON, text, etc.).
+
+• header("HTTP/1.1 404 Not Found"); // Sends an HTTP status response.
+
+• header("Cache-Control: no-cache"); // Prevents caching of the response.
+
+• header("Expires: 0"); // Tells browser content is already expired (no caching)
+
+• header("Content-Disposition: attachment; filename=file.txt"); 
+  // Forces browser to download instead of display.
