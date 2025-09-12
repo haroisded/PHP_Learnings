@@ -176,7 +176,6 @@ $obj = new stdClass(); // old object destroyed, replaced by new
 
 - - - ( Inheritance & Composition ) - - -
 
-
 * ( Inheritance ):
 
 - Inheritance allows a class (child) to derive(receive) 
